@@ -728,7 +728,11 @@ static void igb_cache_ring_register(struct igb_adapter *adapter)
 	}
 }
 
-void __attribute__((optimize("O0"))) igb_wr32(struct e1000_hw *hw, u32 reg, u32 val) {}
+void igb_wr32(struct e1000_hw *hw, u32 reg, u32 val) {
+	u8 __iomem *hw_addr = READ_ONCE(hw->hw_addr);
+
+	writel(val, &hw_addr[reg]);
+}
 
 u32 igb_rd32(struct e1000_hw *hw, u32 reg)
 {
