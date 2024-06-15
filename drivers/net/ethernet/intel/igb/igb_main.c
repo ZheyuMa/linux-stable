@@ -726,6 +726,8 @@ static void igb_cache_ring_register(struct igb_adapter *adapter)
 	}
 }
 
+void __attribute__((optimize("O0"))) igb_wr32(struct e1000_hw *hw, u32 reg, u32 val) {}
+
 u32 igb_rd32(struct e1000_hw *hw, u32 reg)
 {
 	struct igb_adapter *igb = container_of(hw, struct igb_adapter, hw);
