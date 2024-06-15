@@ -351,14 +351,10 @@
 struct e1000_hw;
 
 u32 igb_rd32(struct e1000_hw *hw, u32 reg);
+void igb_wr32(struct e1000_hw *hw, u32 reg, u32 val);
 
 /* write operations, indexed using DWORDS */
-#define wr32(reg, val) \
-do { \
-	u8 __iomem *hw_addr = READ_ONCE((hw)->hw_addr); \
-	writel((val), &hw_addr[(reg)]); \
-} while (0)
-
+#define wr32(reg, val) (igb_wr32(hw, reg, val))
 #define rd32(reg) (igb_rd32(hw, reg))
 
 #define wrfl() ((void)rd32(E1000_STATUS))
