@@ -412,53 +412,81 @@ static const struct pci_device_id snd_intel8x0_ids[] = {
 
 MODULE_DEVICE_TABLE(pci, snd_intel8x0_ids);
 
-/*
- *  Lowlevel I/O - busmaster
- */
+#define igetbyte(chip, offset) \
+	(ioread8((chip)->bmaddr + (offset)))
 
-static inline u8 igetbyte(struct intel8x0 *chip, u32 offset)
-{
-	return ioread8(chip->bmaddr + offset);
-}
+#define igetword(chip, offset) \
+	(ioread16((chip)->bmaddr + (offset)))
 
-static inline u16 igetword(struct intel8x0 *chip, u32 offset)
-{
-	return ioread16(chip->bmaddr + offset);
-}
+#define igetdword(chip, offset) \
+	(ioread32((chip)->bmaddr + (offset)))
 
-static inline u32 igetdword(struct intel8x0 *chip, u32 offset)
-{
-	return ioread32(chip->bmaddr + offset);
-}
+#define iputbyte(chip, offset, val) \
+	(iowrite8((val), (chip)->bmaddr + (offset)))
 
-static inline void iputbyte(struct intel8x0 *chip, u32 offset, u8 val)
-{
-	iowrite8(val, chip->bmaddr + offset);
-}
+#define iputword(chip, offset, val) \
+	(iowrite16((val), (chip)->bmaddr + (offset)))
 
-static inline void iputword(struct intel8x0 *chip, u32 offset, u16 val)
-{
-	iowrite16(val, chip->bmaddr + offset);
-}
-
-static inline void iputdword(struct intel8x0 *chip, u32 offset, u32 val)
-{
-	iowrite32(val, chip->bmaddr + offset);
-}
+#define iputdword(chip, offset, val) \
+	(iowrite32((val), (chip)->bmaddr + (offset)))
 
 /*
  *  Lowlevel I/O - AC'97 registers
  */
 
-static inline u16 iagetword(struct intel8x0 *chip, u32 offset)
-{
-	return ioread16(chip->addr + offset);
-}
+#define iagetword(chip, offset) \
+	(ioread16((chip)->addr + (offset)))
 
-static inline void iaputword(struct intel8x0 *chip, u32 offset, u16 val)
-{
-	iowrite16(val, chip->addr + offset);
-}
+#define iaputword(chip, offset, val) \
+	(iowrite16((val), (chip)->addr + (offset)))
+
+/*
+ *  Lowlevel I/O - busmaster
+ */
+
+// static inline u8 igetbyte(struct intel8x0 *chip, u32 offset)
+// {
+// 	return ioread8(chip->bmaddr + offset);
+// }
+// 
+// static inline u16 igetword(struct intel8x0 *chip, u32 offset)
+// {
+// 	return ioread16(chip->bmaddr + offset);
+// }
+// 
+// static inline u32 igetdword(struct intel8x0 *chip, u32 offset)
+// {
+// 	return ioread32(chip->bmaddr + offset);
+// }
+// 
+// static inline void iputbyte(struct intel8x0 *chip, u32 offset, u8 val)
+// {
+// 	iowrite8(val, chip->bmaddr + offset);
+// }
+// 
+// static inline void iputword(struct intel8x0 *chip, u32 offset, u16 val)
+// {
+// 	iowrite16(val, chip->bmaddr + offset);
+// }
+// 
+// static inline void iputdword(struct intel8x0 *chip, u32 offset, u32 val)
+// {
+// 	iowrite32(val, chip->bmaddr + offset);
+// }
+
+/*
+ *  Lowlevel I/O - AC'97 registers
+ */
+
+// static inline u16 iagetword(struct intel8x0 *chip, u32 offset)
+// {
+// 	return ioread16(chip->addr + offset);
+// }
+// 
+// static inline void iaputword(struct intel8x0 *chip, u32 offset, u16 val)
+// {
+// 	iowrite16(val, chip->addr + offset);
+// }
 
 /*
  *  Basic I/O
